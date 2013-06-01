@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('pgrcApp', ['Parse'])
+angular.module('pgrcApp', ['Parse','ui.bootstrap'])
   .config(['ParseProvider', '$httpProvider', '$routeProvider',function (ParseProvider, $httpProvider, $routeProvider) {
-    
+
     ParseProvider.initialize(
       'lEKhkqeZuGbj8SLXf5e8l8u6zjSW0ZcSukJ7LXWf',
       'hOJfJ6OEYEiiauMjOUtQ1B07lnmdJF1oLxG6I1Sg'
