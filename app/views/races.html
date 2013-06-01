@@ -1,3 +1,9 @@
-<ul>
-  <li ng-repeat="race in races">{{race}}</li>
-</ul>
+<div class="row-fluid content" ng-controller="RacesCtrl">
+  <div class="span4">
+    <ul ng-repeat="race in races | orderBy:sort">
+      <li>{{race.date | date:M/d/yy}}: <a load-results="{{race.id}}">{{race.name}} {{race.distance}}</a></li>
+    </ul>
+  </div>
+
+  <div class="span8" ng-include src="template.url/:template.id" ng-controller="ResultCtrl">
+</div>

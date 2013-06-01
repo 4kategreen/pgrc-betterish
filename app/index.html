@@ -26,7 +26,16 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-view></div>
+    <div class="container">
+      <h1>Prince George's Running Club</h1>
+<!--       <tabs ng-controller="TabsController">
+        <pane ng-repeat="pane in panes" href="{{pane.href}}" heading="{{pane.heading}}" active="pane.active"></pane>
+      </tabs>
+ -->
+      <div ng-view></div>
+
+      <footer>Something</footer>
+    </div>
 
     <script src="components/angular/angular.js"></script>
     <script src="components/angular-resource/angular-resource.js"></script>
