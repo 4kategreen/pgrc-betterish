@@ -1,7 +1,13 @@
 'use strict';
 
-angular.module('pgrcApp', [])
-  .config(function ($routeProvider) {
+angular.module('pgrcApp', ['Parse'])
+  .config(['ParseProvider', '$httpProvider', '$routeProvider',function (ParseProvider, $httpProvider, $routeProvider) {
+    
+    ParseProvider.initialize(
+      'lEKhkqeZuGbj8SLXf5e8l8u6zjSW0ZcSukJ7LXWf',
+      'hOJfJ6OEYEiiauMjOUtQ1B07lnmdJF1oLxG6I1Sg'
+    );
+
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -30,4 +36,4 @@ angular.module('pgrcApp', [])
       .otherwise({
         redirectTo: '/'
       });
-  });
+  }]);
