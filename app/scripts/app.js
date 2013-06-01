@@ -33,6 +33,10 @@ angular.module('pgrcApp', ['Parse','ui.bootstrap'])
         templateUrl: 'views/contact.html',
         controller: 'ContactCtrl'
       })
+      .when('/race/:id', {
+        templateUrl: 'views/race.html',
+        controller: 'RaceCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
