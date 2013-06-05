@@ -11,9 +11,9 @@ describe('Filter: results', function () {
     results = $filter('results');
   }));
 
-  it('should return the input prefixed with "results filter:"', function () {
-    var text = 'angularjs';
-    expect(results(text)).toBe('results filter: ' + text);
-  });
+  // it('should return the input prefixed with "results filter:"', function () {
+  //   var text = 'angularjs';
+  //   expect(results(text)).toBe('results filter: ' + text);
+  // });
 
 });

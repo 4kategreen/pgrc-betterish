@@ -1,38 +1,42 @@
 'use strict';
 
 angular.module('pgrcApp')
-  .controller('RacesCtrl', function ($scope, Races) {
-    $scope.sort = 'date';
-    $scope.new = new Races();
+  .controller('RacesCtrl', ['$scope', 'angularFire', function ($scope, angularFire) {
+    var url = 'https://kategreen.firebaseio.com/races';
+    var promise = angularFire(url, $scope, 'races');
 
-    $scope.load = function() {
-      Races.query().then(function(races) {
-        $scope.races = races;
+    promise.then(function() {
+      var today = new Date();
+      angular.forEach($scope.races, function(race,key) {
+        var pastRegDate = today > new Date(race.registrationCloseDate) ? true : false;
+        var pastDate = today > new Date(race.date) ? true : false;
+        var results = race.results ? race.results.length : 0;
+        $scope.races[key].state = race.state || 'closed';
 
-        angular.forEach($scope.races, function(val, key) {
-          $scope.races[key].date  = val.date.iso;
-          $scope.races[key].linkTitle = $scope.races[key].results ? 
-            'View Results' :
-            'More Information'
-        });
+        if (race.registrationCloseDate) {
+          if (pastRegDate) {
+            if (results > 0) {
+              $scope.races[key].state = 'results';
+            } else {
+              $scope.races[key].state = 'closed';
+            }
+          } else {
+            $scope.races[key].state = 'open';
+          }
+        } else {
+          if (pastDate) {
+            if (results > 0) {
+              $scope.races[key].state = 'results';
+            } else {
+              $scope.races[key].state = 'closed';
+            }
+          }
+        }
       });
-    };
-
-    $scope.save = function() {
-      var newDate = new Date($scope.new.date);
-      $scope.new.date = {
-        "__type": "Date",
-        "iso": newDate.toISOString()
+      // Or, attach a function to $scope that will let a directive in markup manipulate the model.
+      $scope.removeItem = function() {
+        $scope.items.splice($scope.toRemove, 1);
+        $scope.toRemove = null;
       };
-      $scope.new.save().then(function() {
-        console.log('success', arguments);
-        $scope.addRace.$setPristine;
-        $scope.new = new Races();
-        $scope.load();
-      }, function() {
-        console.log('fail', arguments);
-      });
-    }
-
-    $scope.load();
-  });
+    });
+  }]);

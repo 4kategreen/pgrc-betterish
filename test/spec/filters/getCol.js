@@ -11,9 +11,9 @@ describe('Filter: getCol', function () {
     getCol = $filter('getCol');
   }));
 
-  it('should return the input prefixed with "getCol filter:"', function () {
-    var text = 'angularjs';
-    expect(getCol(text)).toBe('getCol filter: ' + text);
-  });
+  // it('should return the input prefixed with "getCol filter:"', function () {
+  //   var text = 'angularjs';
+  //   expect(getCol(text)).toBe('getCol filter: ' + text);
+  // });
 
 });
