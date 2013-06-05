@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('pgrcApp', ['ui.bootstrap','firebase'])
+angular.module('pgrcApp', ['ui.bootstrap.tabs','firebase'])
   .config(['$httpProvider', '$routeProvider',function ($httpProvider, $routeProvider) {
 
     $routeProvider
