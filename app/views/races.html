@@ -1,4 +1,4 @@
-<div class="row-fluid content" ng-controller="RacesCtrl">
+<div class="row-fluid content">
   <div class="span8">
     <ul ng-repeat="race in races | orderBy:sort">
       <li>{{race.date | date:M/d/yy}}: {{race.name}} {{race.distance}} <a ng-href="#/races/{{race.id}}">{{race.state}}</a></li>

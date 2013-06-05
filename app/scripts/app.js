@@ -28,7 +28,7 @@ angular.module('pgrcApp', ['ui.bootstrap.tabs','firebase'])
         templateUrl: 'views/contact.html',
         controller: 'ContactCtrl'
       })
-      .when('/race/:id', {
+      .when('/races/:id', {
         templateUrl: 'views/race.html',
         controller: 'RaceCtrl'
       })

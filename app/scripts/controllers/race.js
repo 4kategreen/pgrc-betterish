@@ -1,7 +1,11 @@
 'use strict';
 
 angular.module('pgrcApp')
-  .controller('RaceCtrl', function ($scope, $routeParams, Results) {
+  .controller('RaceCtrl', ['$scope', '$routeParams', 'angularFire', function ($scope, $routeParams, angularFire) {
+    var url = 'https://kategreen.firebaseio.com/races/'+$routeParams.id;
+    console.log(url);
+    var promise = angularFire(url, $scope, 'races', []);
+
     $scope.columns = [
       { name: 'Place', id: 'place' },
       { name: 'Bib #', id: 'bib' },
@@ -11,18 +15,4 @@ angular.module('pgrcApp')
       { name: 'Time', id: 'chipTime' },
       { name: 'Pace per Mile', id: 'pace' }
     ];
-
-    $scope.load = function() {
-      console.log($routeParams.id);
-      Results.query({
-        where: {
-          race: $routeParams.objectId
-        }
-      }).then(function(results) {
-        $scope.results = results;
-        console.log('result controller');
-      });
-    };
-
-    $scope.load();
-  });
+  }]);
