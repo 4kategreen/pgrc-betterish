@@ -3,6 +3,7 @@
 angular.module('pgrcApp')
   .controller('RacesCtrl', ['$scope', 'angularFire', function ($scope, angularFire) {
     var url = 'https://kategreen.firebaseio.com/races';
+    // should return many, thus []
     var promise = angularFire(url, $scope, 'races', []);
 
     promise.then(function() {

@@ -3,8 +3,8 @@
 angular.module('pgrcApp')
   .controller('RaceCtrl', ['$scope', '$routeParams', 'angularFire', function ($scope, $routeParams, angularFire) {
     var url = 'https://kategreen.firebaseio.com/races/'+$routeParams.id;
-    console.log(url);
-    var promise = angularFire(url, $scope, 'races', []);
+    // should return 1, thus {}
+    var promise = angularFire(url, $scope, 'race', {});
 
     $scope.columns = [
       { name: 'Place', id: 'place' },
