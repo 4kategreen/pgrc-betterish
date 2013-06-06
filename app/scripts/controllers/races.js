@@ -1,38 +1,63 @@
 'use strict';
 
 angular.module('pgrcApp')
-  .controller('RacesCtrl', function ($scope, Races) {
-    $scope.sort = 'date';
-    $scope.new = new Races();
+  .controller('RacesCtrl', ['$scope', 'angularFire', function ($scope, angularFire) {
+    var url = 'https://kategreen.firebaseio.com/races';
+    // should return many, thus []
+    var promise = angularFire(url, $scope, 'races', []);
 
-    $scope.load = function() {
-      Races.query().then(function(races) {
-        $scope.races = races;
+    promise.then(function() {
+      // Or, attach a function to $scope that will let a directive in markup manipulate the model.
+      $scope.removeItem = function() {
+        $scope.items.splice($scope.toRemove, 1);
+        $scope.toRemove = null;
+      };
 
-        angular.forEach($scope.races, function(val, key) {
-          $scope.races[key].date  = val.date.iso;
-          $scope.races[key].linkTitle = $scope.races[key].results ? 
-            'View Results' :
-            'More Information'
-        });
+      $scope.setState();
+    });
+
+    $scope.add = function() {
+      $scope.races.push({
+        date: '2013-05-05T08:00-0400',
+        distance: '5K',
+        name: 'Run for the Bay'
       });
     };
 
-    $scope.save = function() {
-      var newDate = new Date($scope.new.date);
-      $scope.new.date = {
-        "__type": "Date",
-        "iso": newDate.toISOString()
-      };
-      $scope.new.save().then(function() {
-        console.log('success', arguments);
-        $scope.addRace.$setPristine;
-        $scope.new = new Races();
-        $scope.load();
-      }, function() {
-        console.log('fail', arguments);
-      });
-    }
+    $scope.setState = function() {
+      var today = new Date();
+      $scope.races.forEach(function(race,key) {
+        var pastRegDate = today > new Date(race.registrationCloseDate) ? true : false;
+        var pastDate = today > new Date(race.date) ? true : false;
+        var results = race.results ? race.results.length : 0;
+        var state = 'closed';
 
-    $scope.load();
-  });
+        if (race.registrationCloseDate) {
+          if (pastRegDate) {
+            if (results > 0) {
+              state = 'results';
+            } else {
+              state = 'closed';
+            }
+          } else {
+            state = 'open';
+          }
+        } else {
+          if (pastDate) {
+            if (results > 0) {
+              state = 'results';
+            } else {
+              state = 'closed';
+            }
+          } else {
+            state = 'open';
+          }
+        }
+
+        if (!$scope.races[key].state || $scope.races[key].state !== state) {
+          $scope.races[key].state = state;
+        }
+        $scope.races[key].id = key;
+      });
+    };
+  }]);
