@@ -9,10 +9,12 @@ angular.module('pgrcApp')
     $scope.columns = [
       { name: 'Place', id: 'place' },
       { name: 'Bib #', id: 'bib' },
-      { name: 'Name', id: 'name' },
+      { name: 'First Name', id: 'firstName' },
+      { name: 'Last Name', id: 'lastName' },
+      { name: 'Gender', id: 'gender' },
       { name: 'Age', id: 'age' },
       { name: 'Hometown', id: 'cityState' },
-      { name: 'Time', id: 'chipTime' },
+      { name: 'Time', id: 'time' },
       { name: 'Pace per Mile', id: 'pace' }
     ];
   }]);

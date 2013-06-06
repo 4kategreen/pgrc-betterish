@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="runner in results | orderBy:sort">
+    <tr ng-repeat="runner in race.results | orderBy:sort">
       <td ng-repeat="column in columns" class="{{column.id}}">{{runner | getCol:column.id}}</td>
     </tr>
   </tbody>
