@@ -1,9 +1,21 @@
-<div class="row-fluid content" ng-controller="RacesCtrl">
-  <div class="span4">
-    <ul ng-repeat="race in races | orderBy:sort">
-      <li>{{race.date | date:M/d/yy}}: <a load-results="{{race.id}}">{{race.name}} {{race.distance}}</a></li>
+<div class="row-fluid content">
+  <div class="span8">
+    <ul>
+      <li ng-repeat="race in races | orderBy:sort">{{race.date | date:M/d/yy}}: {{race.name}} {{race.distance}} <a ng-href="#/race/{{race.objectId}}">{{race.linkTitle}}</a></li>
     </ul>
   </div>
 
-  <div class="span8"></span>
+  <div class="span4">
+    <form name="addRace">
+      <fieldset>
+        <label for="new.name">Name</label>
+        <input ng-model="new.name" />
+
+        <label for="new.date">Date</label>
+        <input ng-model="new.date" />
+      </fieldset>
+
+      <button ng-click="save()">Save</button>
+    </form>
+  </div>
 </div>

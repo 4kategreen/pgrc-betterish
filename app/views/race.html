@@ -1,1 +1,17 @@
-<p>This is the race view.</p>
+<div class="row-fluid">
+  <h2>{{name}}</h2>
+  <p>A {{distance}} race timed by the Prince George's Running Club</p>
+  <p>{{date | date:M/d/yy}}</p>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th ng-repeat="column in columns" class="{{column.id}}">{{column.name}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="runner in results | orderBy:sort">
+      <td ng-repeat="column in columns" class="{{column.id}}">{{runner | getCol:column.id}}</td>
+    </tr>
+  </tbody>
+</table>
