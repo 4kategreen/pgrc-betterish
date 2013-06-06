@@ -1,5 +1,6 @@
 <div class="row-fluid content">
   <div class="span8">
+<<<<<<< HEAD
     <ul>
       <li ng-repeat="race in races | orderBy:sort">{{race.date | date:M/d/yy}}: {{race.name}} {{race.distance}} <a ng-href="#/race/{{race.objectId}}">{{race.linkTitle}}</a></li>
     </ul>
@@ -18,4 +19,12 @@
       <button ng-click="save()">Save</button>
     </form>
   </div>
+=======
+    <ul ng-repeat="race in races | orderBy:sort">
+      <li>{{race.date | date:M/d/yy}}: {{race.name}} {{race.distance}} <a ng-href="#/races/{{race.id}}">{{race.state}}</a></li>
+    </ul>
+  </div>
+
+  <div class="span4"></span>
+>>>>>>> 7bd50dde170129822e03dcec2a560ac0498cb4ea
 </div>
