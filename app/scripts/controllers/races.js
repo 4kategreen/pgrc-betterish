@@ -2,11 +2,13 @@
 
 angular.module('pgrcApp')
   .controller('RacesCtrl', ['$scope', 'angularFire', function ($scope, angularFire) {
-    var url = 'https://kategreen.firebaseio.com/races';
-    // should return many, thus []
-    var promise = angularFire(url, $scope, 'races', []);
 
-    promise.then(function() {
+    // GET RACES FROM FIREBASE
+    var races = 'https://kategreen.firebaseio.com/races';
+    // should return many, thus []
+    var racesPromise = angularFire(races, $scope, 'races', []);
+
+    racesPromise.then(function() {
       // Or, attach a function to $scope that will let a directive in markup manipulate the model.
       $scope.removeItem = function() {
         $scope.items.splice($scope.toRemove, 1);
@@ -16,12 +18,16 @@ angular.module('pgrcApp')
       $scope.setState();
     });
 
+    // GET DISTANCES FROM FIREBASE
+    var distances = 'https://kategreen.firebaseio.com/distances';
+    var distancesPromise = angularFire(distances, $scope, 'distances', []);
+
+    // FUNCTIONS
     $scope.add = function() {
-      $scope.races.push({
-        date: '2013-05-05T08:00-0400',
-        distance: '5K',
-        name: 'Run for the Bay'
-      });
+      $scope.new.date = new Date($scope.new.date).toISOString();
+      $scope.races.push($scope.new);
+      $scope.new = {};
+      $scope.setState();
     };
 
     $scope.setState = function() {
@@ -43,14 +49,10 @@ angular.module('pgrcApp')
             state = 'open';
           }
         } else {
-          if (pastDate) {
-            if (results > 0) {
+          if (pastDate && results > 0) {
               state = 'results';
-            } else {
-              state = 'closed';
-            }
           } else {
-            state = 'open';
+            state = 'closed';
           }
         }
 
@@ -60,4 +62,11 @@ angular.module('pgrcApp')
         $scope.races[key].id = key;
       });
     };
+
+    $scope.dateOptions = {
+      changeYear: true,
+      changeMonth: true,
+      yearRange: '1900:-0'
+    };
+
   }]);

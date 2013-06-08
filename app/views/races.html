@@ -9,13 +9,29 @@
     <form name="addRace">
       <fieldset>
         <label for="new.name">Name</label>
-        <input ng-model="new.name" />
+        <input type="text" ng-model="new.name" required>
+
+        <label for="new.distance">Distances</label>
+        <select ng-model="new.distance" required>
+          <option value=''></option>
+          <option ng-repeat="dist in distances">{{dist.distance}}</option>
+          <option value="Other">Other</option>
+        </select>
 
         <label for="new.date">Date</label>
-        <input ng-model="new.date" />
+        <input type="text" ui-date="dateOptions" ng-model="new.date" required>
+
+        <label for="new.time">Time</label>
+        <input type="text" ng-model="new.time">
+
+        <label for="new.registration">Registration Link</label>
+        <input type="url" ng-model="new.registration">
+
+        <label for="new.registrationCloseDate">Registration Close Date</label>
+        <input type="text" ui-date="dateOptions" ng-model="new.registrationCloseDate">
       </fieldset>
 
-      <button ng-click="save()">Save</button>
+      <button ng-click="add()">Save</button>
     </form>
   </div>
 </div>
